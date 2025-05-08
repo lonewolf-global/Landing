@@ -1,19 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>www.lonewolf.global</title>
+  <meta charset="UTF-8">
+  <title>Lonewolf</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #050A1D, #0C1141); /* Deep navy gradient (darker) */
+      font-family: Arial, sans-serif;
+      color: #CFB53B; /* Refined gold */
+      text-align: center;
+      padding: 100px;
+    }
+
+    img.logo {
+      width: 150px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #CFB53B;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #CFB53B;
+    }
+
+    form {
+      margin-top: 30px;
+    }
+
+    input, textarea {
+      font-family: Arial, sans-serif; /* Ensuring the same font */
+      background-color: #232946; /* Muted dark navy */
+      color: #CFB53B;
+      padding: 10px;
+      margin: 10px;
+      width: 300px;
+      border: 1px solid #CFB53B;
+      border-radius: 5px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #bfa76a;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #CFB53B; /* Solid gold background */
+      color: #1B1F3B; /* Dark text for contrast */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    button:hover {
+      background-color: #bfa76a; /* Slightly darker gold on hover */
+      color: #1A1A2E; /* Slightly lighter text for contrast */
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Lonewolf!</h1>
-    </header>
-    <main>
-        <p>We are Coming soon. Stay tuned!</p>
-    </main>
-    <footer>
-        <p>&copy; 2025 Lonewolf. All Rights Reserved.</p>
-    </footer>
+
+  <!-- Logo -->
+  <img src="logo.png" alt="Lonewolf Logo" class="logo">
+
+  <h1>Lonewolf.global is coming soon!</h1>
+  <p>Let us know what do you think and we’ll get back to you:</p>
+
+  <form action="https://formspree.io/f/xeogkwje" method="POST">
+    <input type="text" name="name" placeholder="Your name" required><br>
+    <input type="email" name="email" placeholder="Your email" required><br>
+    <textarea name="message" placeholder="Your thoughts.." rows="5" required></textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+
 </body>
 </html>
