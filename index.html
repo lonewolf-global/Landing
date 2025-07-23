@@ -4,13 +4,29 @@
   <meta charset="UTF-8">
   <title>Lonewolf</title>
   <link rel="icon" href="logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(to right, #050A1D, #0C1141); /* Deep navy gradient (darker) */
-      font-family: Arial, sans-serif;
-      color: #CFB53B; /* Refined gold */
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle, #5f48c9 0%, #0d0d2a 100%);
+      background-attachment: fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .hero, .features {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease-out forwards;
+      animation-delay: 0.2s;
       text-align: center;
-      padding: 100px;
+      max-width: 600px;
+      padding: 2rem 1rem;
     }
 
     img.logo {
@@ -21,65 +37,114 @@
     h1 {
       font-size: 3em;
       margin-bottom: 10px;
-      color: #CFB53B;
     }
 
     p {
       font-size: 1.2em;
-      color: #CFB53B;
+      margin-bottom: 1.5rem;
     }
 
     form {
-      margin-top: 30px;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     input, textarea {
-      font-family: Arial, sans-serif; /* Ensuring the same font */
-      background-color: #232946; /* Muted dark navy */
-      color: #CFB53B;
+      font-family: 'Inter', sans-serif;
+      background-color: #232946;
+      color: #ffffff;
       padding: 10px;
-      margin: 10px;
-      width: 300px;
-      border: 1px solid #CFB53B;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 300px;
+      border: 1px solid #ffffff;
       border-radius: 5px;
     }
 
     input::placeholder,
     textarea::placeholder {
-      color: #bfa76a;
+      color: #aaa;
     }
 
     button {
+      width: 100%;
+      max-width: 300px;
       padding: 10px 20px;
-      background-color: #CFB53B; /* Solid gold background */
-      color: #1B1F3B; /* Dark text for contrast */
+      background-color: #ff5a5f;
+      color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
       transition: background-color 0.3s, color 0.3s;
+      margin-top: 10px;
     }
 
     button:hover {
-      background-color: #bfa76a; /* Slightly darker gold on hover */
-      color: #1A1A2E; /* Slightly lighter text for contrast */
+      background-color: #e14e52;
+      color: #fefefe;
+    }
+
+    .features {
+      animation-delay: 0.8s;
+    }
+
+    .feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .feature {
+      background-color: #2a2a4a;
+      padding: 1rem;
+      border-radius: 8px;
+      min-width: 120px;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      input, textarea, button {
+        max-width: 90%;
+      }
+
+      .feature-grid {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
+  <section class="hero">
+    <img src="logo.png" alt="Lonewolf Logo" class="logo">
+    <h1>Coming Soon</h1>
+    <p>We’d love to hear your thoughts...</p>
+    <form>
+      <input type="text" placeholder="Your name">
+      <input type="email" placeholder="Your email">
+      <textarea placeholder="Your thoughts.."></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </section>
 
-  <!-- Logo -->
-  <img src="logo.png" alt="Lonewolf Logo" class="logo">
-
-  <h1>Lonewolf.global is coming soon!</h1>
-  <p>We’d love to hear your thoughts...</p>
-
-  <form action="https://formspree.io/f/xeogkwje" method="POST">
-    <input type="text" name="name" placeholder="Your name" required><br>
-    <input type="email" name="email" placeholder="Your email" required><br>
-    <textarea name="message" placeholder="Your thoughts.." rows="5" required></textarea><br>
-    <button type="submit">Submit</button>
-  </form>
-
+  <section class="features">
+    <h2>Why Lonewolf?</h2>
+    <div class="feature-grid">
+      <div class="feature">🚀 Fast Delivery</div>
+      <div class="feature">🔒 Secure Platform</div>
+      <div class="feature">🌍 Global Reach</div>
+    </div>
+  </section>
 </body>
 </html>
