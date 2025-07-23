@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lonewolf</title>
   <link rel="icon" href="logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -39,43 +40,21 @@
       z-index: 0;
     }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: auto;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  box-sizing: border-box;
-
-  /* Glassmorphism */
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  /* Visual edges */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05),
-              0 1px 2px rgba(255, 255, 255, 0.2) inset;
-
-  overflow: hidden; /* Prevents internal scroll */
-}
-
-    .navbar::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 2px;
-      background: linear-gradient(to right, transparent, #888, transparent);
-      border-radius: 1px;
-      opacity: 0.6;
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05),
+                  0 1px 2px rgba(255, 255, 255, 0.2) inset;
     }
 
     .nav-left {
@@ -112,7 +91,7 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      padding-right: 1rem;
+      position: relative;
     }
 
     .hamburger {
@@ -121,14 +100,12 @@
       justify-content: center;
       align-items: center;
       gap: 4px;
-      padding: 4px;
       width: 32px;
       height: 32px;
       cursor: pointer;
       border: none;
       background: transparent;
       border-radius: 5px;
-      transition: background-color 0.3s ease;
     }
 
     .hamburger span {
@@ -137,15 +114,45 @@
       height: 2px;
       background-color: #fff;
       border-radius: 1px;
-      transition: background-color 0.3s ease;
     }
 
-    .hamburger:hover {
-      background-color: rgba(255, 255, 255, 0.15);
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      padding: 10px 0;
+      flex-direction: column;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1001;
     }
 
-    .hamburger:hover span {
-      background-color: #ddd;
+    .dropdown-menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px 16px;
+      transition: background 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Show on hover for desktop */
+    @media (min-width: 601px) {
+      .nav-right:hover .dropdown-menu {
+        display: flex;
+      }
+    }
+
+    /* For mobile: toggle via JS */
+    .dropdown-menu.show {
+      display: flex;
     }
 
     .container {
@@ -187,9 +194,11 @@
     form {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-end;
       gap: 0.75rem;
       margin-bottom: 3rem;
+      width: 100%;
+      max-width: 320px;
     }
 
     input, textarea {
@@ -197,7 +206,6 @@
       color: #ffffff;
       padding: 12px;
       width: 100%;
-      max-width: 320px;
       border: 1px solid #ffffff;
       border-radius: 5px;
       font-size: 1em;
@@ -214,21 +222,20 @@
     }
 
     button {
-      padding: 12px 20px;
-      background-color: #ff5a5f;
-      color: white;
+      padding: 8px 16px;
+      background-color: #ffffff;
+      color: #5f48c9;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      transition: background-color 0.3s ease;
-      max-width: 320px;
-      width: 100%;
       font-size: 1em;
+      align-self: flex-end;
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #e14e52;
+      background-color: #f1f1f1;
     }
 
     .features {
@@ -278,12 +285,45 @@
     }
 
     @media (max-width: 600px) {
-      .feature {
-        width: 90%;
+      .nav-center {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
       }
 
       h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1em;
+      }
+
+      form {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+        align-items: flex-end;
+      }
+
+      input, textarea, button {
+        width: 100%;
+      }
+
+      .features h2 {
+        font-size: 1.4rem;
+        text-align: center;
+      }
+
+      .feature-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .feature {
+        width: 90%;
       }
     }
   </style>
@@ -300,11 +340,16 @@
       <a href="#" class="nav-item">Login</a>
     </div>
     <div class="nav-right">
-      <button class="hamburger" aria-label="More">
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
       </button>
+      <div class="dropdown-menu" id="dropdown">
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+        <a href="#">Accounts</a>
+        <a href="#">Logout</a>
+        <a href="#">Help</a>
+      </div>
     </div>
   </nav>
 
@@ -329,5 +374,20 @@
       </div>
     </section>
   </div>
+
+  <script>
+    function toggleMenu() {
+      const dropdown = document.getElementById('dropdown');
+      dropdown.classList.toggle('show');
+    }
+
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('dropdown');
+      const hamburger = document.querySelector('.hamburger');
+      if (!dropdown.contains(event.target) && !hamburger.contains(event.target)) {
+        dropdown.classList.remove('show');
+      }
+    });
+  </script>
 </body>
 </html>
