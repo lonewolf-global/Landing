@@ -7,6 +7,11 @@
   <link rel="icon" href="logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      /* Define a CSS variable for the scrollbar width. JS will set its value. */
+      --scrollbar-width: 0px;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -44,14 +49,21 @@
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
+      width: calc(100% - var(--scrollbar-width));
+      height: auto;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
+      transition: width 0.2s ease-in-out;
+
+      /* Glassmorphism */
       background: rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      /* Visual edges */
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05),
                   0 1px 2px rgba(255, 255, 255, 0.2) inset;
@@ -62,7 +74,9 @@
     }
 
     .nav-logo {
+      /* Set only the height and let the width adjust automatically to maintain the original aspect ratio. */
       height: 40px;
+      width: auto;
     }
 
     .nav-center {
@@ -94,65 +108,119 @@
       position: relative;
     }
 
+    /* --- HAMBURGER STYLES --- */
     .hamburger {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      border: none;
+      justify-content: space-around;
+      width: 2rem;
+      height: 2rem;
       background: transparent;
-      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1002; /* Above dropdown */
+    }
+
+    .hamburger:focus {
+      outline: none;
     }
 
     .hamburger span {
-      display: block;
-      width: 20px;
-      height: 2px;
-      background-color: #fff;
-      border-radius: 1px;
+      width: 2rem;
+      height: 0.25rem;
+      background: #ffffff;
+      border-radius: 10px;
+      transition: all 0.3s linear;
+      position: relative;
+      transform-origin: 1px;
+    }
+    
+    /* Animate hamburger to an 'X' */
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg);
     }
 
+    /* --- DROPDOWN MENU STYLES --- */
     .dropdown-menu {
-      display: none;
+      display: none; /* Hidden by default */
       position: absolute;
-      top: 50px;
+      top: calc(100% + 10px); /* Position below navbar */
       right: 0;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      /* --- VISIBILITY FIX: Increased opacity --- */
+      background: rgba(20, 20, 50, 0.9);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       border-radius: 8px;
       padding: 10px 0;
       flex-direction: column;
-      min-width: 160px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      min-width: 200px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
       z-index: 1001;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dropdown-menu.show {
+      display: flex;
     }
 
     .dropdown-menu a {
-      display: block;
       color: white;
       text-decoration: none;
-      padding: 10px 16px;
+      padding: 12px 20px;
       transition: background 0.2s;
+      /* --- FONT SIZE FIX: Increased font size --- */
+      font-size: 1rem;
+      font-weight: 500;
     }
 
     .dropdown-menu a:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-nav-item {
+      display: none; /* Hide main nav links in dropdown on desktop */
+    }
+    
+    .dropdown-divider {
+        display: none;
+        height: 1px;
+        margin: 8px 15px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* Show on hover for desktop */
-    @media (min-width: 601px) {
-      .nav-right:hover .dropdown-menu {
+    /* --- RESPONSIVE STYLES FOR MOBILE --- */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 1.5rem;
+      }
+      .nav-center {
+        display: none; /* Hide main links in navbar on mobile */
+      }
+      .mobile-nav-item, .dropdown-divider {
+        display: block; /* Show main links in dropdown on mobile */
+      }
+      .dropdown-menu {
+        /* On mobile, menu is toggled by JS click, not hover */
+        display: none;
+        position: fixed;
+        top: 80px; /* Position below navbar */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+      }
+      .dropdown-menu.show {
         display: flex;
       }
-    }
-
-    /* For mobile: toggle via JS */
-    .dropdown-menu.show {
-      display: flex;
     }
 
     .container {
@@ -162,35 +230,25 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 4rem 1rem;
+      /* --- SPACING FIX: Increased top padding --- */
+      padding: 8rem 1rem 4rem;
       min-height: 100vh;
       text-align: center;
     }
 
     .logo {
-      width: 150px;
+      /* --- SIZE FIX: Increased width --- */
+      width: 180px;
+      height: auto;
       margin-bottom: 30px;
       animation: bounceLogo 1.6s ease-out;
     }
-
-    @keyframes bounceLogo {
-      0%   { transform: translateY(-40px); opacity: 0; }
-      40%  { transform: translateY(20px); opacity: 1; }
-      60%  { transform: translateY(-10px); }
-      80%  { transform: translateY(5px); }
-      100% { transform: translateY(0); }
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 1.2em;
-      margin-bottom: 2rem;
-    }
-
+    
+    @keyframes bounceLogo { 0% { transform: translateY(-40px); opacity: 0; } 40% { transform: translateY(20px); opacity: 1; } 60% { transform: translateY(-10px); } 80% { transform: translateY(5px); } 100% { transform: translateY(0); } }
+    h1 { font-size: 3em; margin-bottom: 0.5rem; }
+    p { font-size: 1.2em; margin-bottom: 2rem; }
+    
+    /* --- ALIGNMENT FIX: Restored form styles --- */
     form {
       display: flex;
       flex-direction: column;
@@ -200,7 +258,7 @@
       width: 100%;
       max-width: 320px;
     }
-
+    
     input, textarea {
       background-color: #232946;
       color: #ffffff;
@@ -210,18 +268,11 @@
       border-radius: 5px;
       font-size: 1em;
     }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #aaa;
-    }
-
-    textarea {
-      resize: none;
-      height: 100px;
-    }
-
-    button {
+    input::placeholder, textarea::placeholder { color: #aaa; }
+    textarea { resize: none; height: 100px; }
+    
+    /* --- ALIGNMENT FIX: Restored button styles --- */
+    button[type="submit"] {
       padding: 8px 16px;
       background-color: #ffffff;
       color: #5f48c9;
@@ -233,105 +284,24 @@
       align-self: flex-end;
       transition: background-color 0.3s ease;
     }
-
-    button:hover {
+    button[type="submit"]:hover {
       background-color: #f1f1f1;
     }
 
-    .features {
-      margin-top: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    .features h2 {
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
-    }
-
-    .feature-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.2rem;
-    }
-
-    .feature {
-      background-color: rgba(255, 255, 255, 0.08);
-      padding: 0.8rem 1rem;
-      border-radius: 10px;
-      min-width: 180px;
-      max-width: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      font-size: 1.05rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      white-space: nowrap;
-    }
-
-    .feature:hover {
-      transform: translateY(-5px);
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .feature .emoji {
-      font-size: 1.3em;
-    }
-
-    .feature .text {
-      font-weight: 600;
-    }
-
-    @media (max-width: 600px) {
-      .nav-center {
-        display: none;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      p {
-        font-size: 1em;
-      }
-
-      form {
-        width: 100%;
-        max-width: 100%;
-        padding: 0 1rem;
-        align-items: flex-end;
-      }
-
-      input, textarea, button {
-        width: 100%;
-      }
-
-      .features h2 {
-        font-size: 1.4rem;
-        text-align: center;
-      }
-
-      .feature-grid {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .feature {
-        width: 90%;
-      }
-    }
+    .features { margin-top: 2rem; margin-bottom: 4rem; }
+    .features h2 { margin-bottom: 1.5rem; font-size: 1.8rem; }
+    .feature-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+    .feature { background-color: rgba(255, 255, 255, 0.08); padding: 0.8rem 1rem; border-radius: 10px; min-width: 180px; max-width: 220px; display: flex; align-items: center; justify-content: center; gap: 0.6rem; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.3s ease; white-space: nowrap; }
+    .feature:hover { transform: translateY(-5px); background-color: rgba(255, 255, 255, 0.15); }
+    .feature .emoji { font-size: 1.3em; }
+    .feature .text { font-weight: 600; }
+    @media (max-width: 600px) { .feature { width: 90%; } h1 { font-size: 2.2rem; } }
   </style>
 </head>
 <body>
   <nav class="navbar">
     <div class="nav-left">
-      <img src="logo.png" alt="Lonewolf Logo" class="nav-logo">
+      <img src="logo.png" alt="Lonewolf Logo" class="nav-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/0d0d2a/ffffff?text=L';">
     </div>
     <div class="nav-center">
       <a href="#" class="nav-item">Find Projects</a>
@@ -340,21 +310,29 @@
       <a href="#" class="nav-item">Login</a>
     </div>
     <div class="nav-right">
-      <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
+      <button class="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-      <div class="dropdown-menu" id="dropdown">
+      <div class="dropdown-menu">
+        <!-- Items for Mobile View -->
+        <a href="#" class="mobile-nav-item">Find Projects</a>
+        <a href="#" class="mobile-nav-item">Post a Project</a>
+        <a href="#" class="mobile-nav-item">Sign up</a>
+        <a href="#" class="mobile-nav-item">Login</a>
+        <div class="dropdown-divider"></div>
+        <!-- Items for All Views -->
         <a href="#">Profile</a>
         <a href="#">Settings</a>
-        <a href="#">Accounts</a>
-        <a href="#">Logout</a>
         <a href="#">Help</a>
+        <a href="#">Logout</a>
       </div>
     </div>
   </nav>
 
   <div class="container">
-    <img src="logo.png" alt="Lonewolf Logo" class="logo">
+    <img src="logo.png" alt="Lonewolf Logo" class="logo" onerror="this.onerror=null;this.src='https://placehold.co/150x150/0d0d2a/ffffff?text=L';">
     <h1>Coming Soon</h1>
     <p>We’d love to hear your thoughts...</p>
 
@@ -376,16 +354,30 @@
   </div>
 
   <script>
-    function toggleMenu() {
-      const dropdown = document.getElementById('dropdown');
-      dropdown.classList.toggle('show');
-    }
+    // --- SCRIPT TO FIX SCROLLBAR OVERLAP ---
+    const updateScrollbarWidth = () => {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+    };
+    document.addEventListener('DOMContentLoaded', updateScrollbarWidth);
+    window.addEventListener('resize', updateScrollbarWidth);
 
-    document.addEventListener('click', function(event) {
-      const dropdown = document.getElementById('dropdown');
-      const hamburger = document.querySelector('.hamburger');
-      if (!dropdown.contains(event.target) && !hamburger.contains(event.target)) {
-        dropdown.classList.remove('show');
+    // --- SCRIPT FOR HAMBURGER MENU ---
+    const hamburger = document.querySelector('.hamburger');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    hamburger.addEventListener('click', (event) => {
+      // Stop the click from bubbling up to the document
+      event.stopPropagation(); 
+      hamburger.classList.toggle('active');
+      dropdownMenu.classList.toggle('show');
+    });
+
+    // Close the menu if clicked outside
+    document.addEventListener('click', (event) => {
+      if (!dropdownMenu.contains(event.target) && !hamburger.contains(event.target)) {
+        hamburger.classList.remove('active');
+        dropdownMenu.classList.remove('show');
       }
     });
   </script>
