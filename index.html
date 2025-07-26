@@ -336,11 +336,14 @@
     <h1>Coming Soon</h1>
     <p>We’d love to hear your thoughts...</p>
 
-    <!-- --- FORMSPREE FIX --- -->
     <form action="https://formspree.io/f/xeogkwje" method="POST">
       <input type="text" name="name" placeholder="Your name" required>
       <input type="email" name="email" placeholder="Your email" required>
       <textarea name="message" placeholder="Your thoughts.." required></textarea>
+      
+      <!-- ANTI-SPAM HONEYPOT FIELD: This is hidden from users but will trap bots. -->
+      <input type="text" name="_gotcha" style="display:none">
+      
       <button type="submit">Submit</button>
     </form>
 
