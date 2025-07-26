@@ -94,6 +94,8 @@
       border-radius: 6px;
       transition: background 0.3s;
       font-size: 0.95rem;
+      /* --- ALIGNMENT FIX: Center text within the link if it wraps --- */
+      text-align: center;
     }
 
     .nav-item:hover {
@@ -248,7 +250,6 @@
     h1 { font-size: 3em; margin-bottom: 0.5rem; }
     p { font-size: 1.2em; margin-bottom: 2rem; }
     
-    /* --- ALIGNMENT FIX: Restored form styles --- */
     form {
       display: flex;
       flex-direction: column;
@@ -271,7 +272,6 @@
     input::placeholder, textarea::placeholder { color: #aaa; }
     textarea { resize: none; height: 100px; }
     
-    /* --- ALIGNMENT FIX: Restored button styles --- */
     button[type="submit"] {
       padding: 8px 16px;
       background-color: #ffffff;
@@ -306,8 +306,8 @@
     <div class="nav-center">
       <a href="#" class="nav-item">Find Projects</a>
       <a href="#" class="nav-item">Post a Project</a>
-      <a href="#" class="nav-item">Sign up</a>
-      <a href="#" class="nav-item">Login</a>
+      <a href="#" class="nav-item">Create Account</a>
+      <a href="#" class="nav-item">Sign in</a>
     </div>
     <div class="nav-right">
       <button class="hamburger" aria-label="Menu">
@@ -319,8 +319,8 @@
         <!-- Items for Mobile View -->
         <a href="#" class="mobile-nav-item">Find Projects</a>
         <a href="#" class="mobile-nav-item">Post a Project</a>
-        <a href="#" class="mobile-nav-item">Sign up</a>
-        <a href="#" class="mobile-nav-item">Login</a>
+        <a href="#" class="mobile-nav-item">Create Account</a>
+        <a href="#" class="mobile-nav-item">Sign in</a>
         <div class="dropdown-divider"></div>
         <!-- Items for All Views -->
         <a href="#">Profile</a>
@@ -336,10 +336,11 @@
     <h1>Coming Soon</h1>
     <p>We’d love to hear your thoughts...</p>
 
-    <form>
-      <input type="text" placeholder="Your name">
-      <input type="email" placeholder="Your email">
-      <textarea placeholder="Your thoughts.."></textarea>
+    <!-- --- FORMSPREE FIX --- -->
+    <form action="https://formspree.io/f/xeogkwje" method="POST">
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="email" placeholder="Your email" required>
+      <textarea name="message" placeholder="Your thoughts.." required></textarea>
       <button type="submit">Submit</button>
     </form>
 
