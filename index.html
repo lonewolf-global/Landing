@@ -4,7 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lonewolf</title>
-  <link rel="icon" href="logo.png" type="image/png">
+  
+  <!-- --- SEO FIX: Added a meta description to improve search engine appearance --- -->
+  <meta name="description" content="Lonewolf is a new platform for freelancers and businesses to connect and collaborate on projects. Coming soon!">
+
+  <!-- --- FAVICON FIX: Provide a full set of icons for all devices and browsers --- -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -43,6 +52,14 @@
       transform: translate(-50%, -50%);
       filter: blur(180px);
       z-index: 0;
+    }
+
+    /* --- ANTI-DOWNLOAD: CSS to make images un-interactive --- */
+    img {
+      pointer-events: none; /* Makes the image un-selectable and un-clickable */
+      user-select: none; /* Prevents text-like selection of the image */
+      -webkit-user-select: none; /* For Safari */
+      -moz-user-select: none; /* For Firefox */
     }
 
     .navbar {
@@ -332,7 +349,7 @@
   </nav>
 
   <div class="container">
-    <img src="logo.png" alt="Lonewolf Logo" class="logo" onerror="this.onerror=null;this.src='https://placehold.co/150x150/0d0d2a/ffffff?text=L';">
+    <img src="logo.png" alt="Lonewolf Logo" class="logo" onerror="this.onerror=null;this.src='https://placehold.co/180x180/0d0d2a/ffffff?text=L';">
     <h1>Coming Soon</h1>
     <p>We’d love to hear your thoughts...</p>
 
@@ -384,6 +401,7 @@
         dropdownMenu.classList.remove('show');
       }
     });
+
   </script>
 </body>
 </html>
